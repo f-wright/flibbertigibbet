@@ -24,12 +24,13 @@ train_articles = "datasets/train-articles"
 dev_articles = "datasets/dev-articles"
 train_SI_labels = "datasets/train-labels-task-si"
 train_TC_labels = "datasets/train-labels-task-flc-tc"
+dev_SI_labels = "datasets/dev-labels-task-si"
+dev_TC_labels = "datasets/dev-labels-task-flc-tc"
 
-dev_SI_labels = "gold_labels/dev-labels-task1-span-identification"
-dev_TC_labels = "gold_labels/dev-labels-task2-technique-classification"
-dev_TC_labels_file = "gold_labels/dev-task-TC.labels"
-dev_TC_template = "datasets/dev-task-TC-template.out"
-techniques = "tools/data/propaganda-techniques-names-semeval2020task11.txt"
+dev_TC_labels_file = "datasets/dev-task-flc-tc.labels"
+dev_TC_template = "datasets/dev-task-flc-tc.labels" #?
+techniques = "propaganda-techniques-names.txt"
+
 PROP_TECH_TO_LABEL = {}
 LABEL_TO_PROP_TECH = {}
 label = 0
@@ -38,7 +39,8 @@ with open(techniques, "r") as f:
     PROP_TECH_TO_LABEL[technique.replace("\n", "")] = int(label)
     LABEL_TO_PROP_TECH[int(label)] = technique.replace("\n", "")
     label += 1
-device = torch.device("cuda")
+# device = torch.device("cuda")
+device = torch.device("cpu") # CHANGE
 n_gpu = torch.cuda.device_count()
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("LOG")
@@ -388,9 +390,9 @@ def generate_TC_eval_dataset_from_article(article_folder, indices_file, tokenize
     article_sequences = []
     for row in reader:
       ids_list.append(row[0])
-      seq_starts.append(row[2])
-      seq_ends.append(row[3])
-      article_sequences.append(articles[row[0]][int(row[2]):int(row[3])])
+      seq_starts.append(row[3])
+      seq_ends.append(row[4])
+      article_sequences.append(articles[row[0]][int(row[3]):int(row[4])])
 
   dataframe = pandas.DataFrame(None, range(len(ids_list)), ["id", "seq_starts", "seq_ends", "label", "text"])
   dataframe["id"] = ids_list
