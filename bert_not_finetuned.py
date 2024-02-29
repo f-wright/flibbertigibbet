@@ -390,9 +390,9 @@ def generate_TC_eval_dataset_from_article(article_folder, indices_file, tokenize
     article_sequences = []
     for row in reader:
       ids_list.append(row[0])
-      seq_starts.append(row[3])
-      seq_ends.append(row[4])
-      article_sequences.append(articles[row[0]][int(row[3]):int(row[4])])
+      seq_starts.append(row[2])
+      seq_ends.append(row[3])
+      article_sequences.append(articles[row[0]][int(row[2]):int(row[3])])
 
   dataframe = pandas.DataFrame(None, range(len(ids_list)), ["id", "seq_starts", "seq_ends", "label", "text"])
   dataframe["id"] = ids_list
