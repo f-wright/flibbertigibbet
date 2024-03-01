@@ -1,0 +1,3 @@
+We got the BERT model running on the propaganda dataset! It currently is getting an F1 score of .11 on the validation data. This isn't great, but it's higher than some of the entries on the leaderboard! We had some issues with the dataloader initially since they expected data files that we did not have, but we resolved them. 
+
+We also tried to get roBERTa running on the propaganda dataset, but were struggling to make it work so decided to focus on BERT for now. We may come back to roBERTa now that we have BERT running. We also may run additional fine tuning on our BERT model or try out different hyperparameter configurations.
