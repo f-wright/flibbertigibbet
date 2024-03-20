@@ -14,5 +14,5 @@ with open("output/output", "r") as f:
         y_pred += [row[1]]
 
 
-print(f1_score(y_true, y_pred, average='weighted'))
+print(f1_score(y_true, y_pred, average="weighted"))
 # current bert model has an F1 score of 0.11 :((
